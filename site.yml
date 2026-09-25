@@ -1,0 +1,6 @@
+---
+- name: Inspect Linux lab hosts
+  hosts: lab_linux
+  gather_facts: false
+  roles:
+    - role: system_report

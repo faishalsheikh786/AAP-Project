@@ -1,0 +1,19 @@
+---
+- name: Gather basic host facts
+  ansible.builtin.setup:
+    gather_subset: "{{ system_report_gather_subset }}"
+
+- name: Require a Linux target
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.system == 'Linux'
+    fail_msg: This lab role is intended for Linux hosts.
+
+- name: Show a concise system report
+  ansible.builtin.debug:
+    msg:
+      host: "{{ inventory_hostname }}"
+      distribution: "{{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}"
+      kernel: "{{ ansible_facts.kernel }}"
+      architecture: "{{ ansible_facts.architecture }}"
+      python: "{{ ansible_facts.python_version }}"
